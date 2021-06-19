@@ -1,11 +1,12 @@
 def worker(arr):
-    summation = sum(arr)
-    average = summation / len(arr)
-    new_arr = [item for item in arr if item < average]
-    print (new_arr)
-    # if iterator <= -1:
-    #     return 0
-    # else: return iterator
+    answer = 0
+    while len(arr) != 0:
+        summation = sum(arr)
+        average = summation / len(arr)
+        arr = [item for item in arr if item < average]
+        if len(arr) > 0:
+            answer += 1
+    print (answer)
 testcase = int(input(''))
 for i in range(testcase):
     ##length = int(input(''))
