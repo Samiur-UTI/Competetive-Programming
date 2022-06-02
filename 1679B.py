@@ -2,18 +2,24 @@ x = list(map(int, input().split()))
 n = x[0]
 q = x[1]
 a = list(map(int, input().split()))
-sum = sum(a)
+total = sum(a)
+flagValue = 0
+flag = False
 for i in range(q):
     t = list(map(int, (input().split())))
     if t[0] == 2:
-        print(len(a)*t[1])
+        total = len(a)*t[1]
+        print(total)
+        flag = True
+        flagValue = t[1]
     else:
-        temp = a[t[1] - 1]
-        val = t[2]
-        a[t[1] - 1] = t[2]
-        if temp > val:
-            print(sum-(temp - val))
-        elif temp < val:
-            print(sum+(val - temp))
+        if flag == True:
+            total -= flagValue
+            total += t[2]
+            a[t[1] - 1] = t[2]
+            print(total)
         else:
-            print(sum)
+            total -= a[t[1] - 1]
+            total += t[2]
+            a[t[1] - 1] = t[2]
+            print(total) 
