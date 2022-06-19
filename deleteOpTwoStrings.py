@@ -1,19 +1,22 @@
-def minOp(word1,word2):
-    word1Map = {}
-    word2Map = {}
-    commonList = []
-    for i in range(len(word1)):
-        word1Map[word1[i]] = i
-    for i in range(len(word2)):
-        word2Map[word2[i]] = i
-        if word2[i] in word1Map:
-            commonList.append(word2[i])
-    if len(commonList) == 0:
-        return len(word1) + len(word2)
-    elif len(commonList) == 1:
-        return len(word1) + len(word2) - 2
-    else:
-        print(commonList)
-        
+def minOp(word1, word2):
+    m = len(word1)
+    n = len(word2)
+    counter = [[0]*(n+1) for x in range(m+1)]
+    longest = 0
+    lcs_set = set()
+    for i in range(m):
+        for j in range(n):
+            if word1[i] == word2[j]:
+                c = counter[i][j] + 1
+                counter[i+1][j+1] = c
+                if c > longest:
+                    lcs_set = set()
+                    longest = c
+                    lcs_set.add(word1[i-c+1:i+1])
+                elif c == longest:
+                    lcs_set.add(word1[i-c+1:i+1])
+    print(lcs_set)
+    if len(lcs_set) == 0: return len(word1) + len(word2)
+    return len(word1) + len(word2) - 2 * len(max(lcs_set))       
 
-print(minOp("sea","ate"))
+print(minOp("park","spake"))
